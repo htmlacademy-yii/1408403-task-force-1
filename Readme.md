@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Андрей Нуритдинов](https://up.htmlacademy.ru/yii/1/user/1408403).
-* Наставник: [Никита Дайнеко](https://htmlacademy.ru/profile/id1275155).
+* Наставник: [Рафаэль Назмутдинов](https://htmlacademy.ru/profile/id1398395).
 
 ---
 
