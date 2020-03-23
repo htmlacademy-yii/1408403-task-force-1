@@ -1,6 +1,6 @@
 <?php
 
-    namespace htmlacademy\src\task;
+    namespace htmlacademy;
 
     /**
      * Class Task

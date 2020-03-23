@@ -1,0 +1,9 @@
+{
+  "name": "neko.in.black/1408403-task-force-1",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "htmlacademy\\": "src/"
+    }
+  }
+}
