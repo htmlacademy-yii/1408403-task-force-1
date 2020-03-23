@@ -1,6 +1,6 @@
 <?php
 
-    namespace htmlacademy\src\task;
+    namespace htmlacademy;
 
     /**
      * Class Task
@@ -35,7 +35,7 @@
 
         public function __construct ()
         {
-            $this->clientID = $this->getUser()->id;
+            #$this->clientID = $this->getUser()->id; currently switched off due to lack of the proper object
             $this->workerID = '';
             $this->currentStatus = self::STATUS_NEW;
         }
