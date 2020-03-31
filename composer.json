@@ -4,7 +4,8 @@
   "autoload": {
     "psr-4": {
       "htmlacademy\\": "src/",
-      "htmlacademy\\user\\": "src/user"
+      "htmlacademy\\user\\": "src/user",
+      "htmlacademy\\action\\": "src/action"
     }
   }
 }
