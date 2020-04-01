@@ -2,6 +2,11 @@
 
     namespace htmlacademy;
 
+    use htmlacademy\action\ActionCancel;
+    use htmlacademy\action\ActionFinish;
+    use htmlacademy\action\ActionReject;
+    use htmlacademy\action\ActionStart;
+
     /**
      * Class Task
      *
@@ -15,29 +20,34 @@
         const STATUS_NEW = 'new';
         const STATUS_CANCELED = 'canceled';
         const STATUS_STARTED = 'started';
-        const STATUS_DONE = 'done';
+        const STATUS_FINISH = 'done';
         const STATUS_FAILED = 'failed';
 
         /**
          * Actions
          */
-        const CANCEL_TASK = 'cancel';
-        const START_TASK = 'start';
-        const FINISH_TASK = 'finish';
-        const REJECT_TASK = 'reject';
+        private $cancelTask;
+        private $startTask;
+        private $finishTask;
+        private $rejectTask;
 
         /**
          * Stored data
          */
         public $currentStatus;
-        private $clientID;
-        private $workerID;
+        private $employerID;
+        private $employeeID;
 
         public function __construct ()
         {
-            #$this->clientID = $this->getUser()->id; currently switched off due to lack of the proper object
-            $this->workerID = '';
+            #$this->$employerID = $this->getUser()->id; currently switched off due to lack of the proper object
+            $this->employeeID = '';
             $this->currentStatus = self::STATUS_NEW;
+
+            $this->cancelTask = new ActionCancel();
+            $this->startTask = new ActionStart();
+            $this->finishTask = new ActionFinish();
+            $this->rejectTask = new ActionReject();
         }
 
         /**
@@ -51,7 +61,7 @@
                 self::STATUS_NEW      => 'Новое',
                 self::STATUS_CANCELED => 'Отменено',
                 self::STATUS_STARTED  => 'В работе',
-                self::STATUS_DONE     => 'Выполнено',
+                self::STATUS_FINISH   => 'Выполнено',
                 self::STATUS_FAILED   => 'Провалено',
             ];
         }
@@ -63,11 +73,12 @@
          */
         public static function getActionMap () : array
         {
+            //Todo: implement later
             return [
-                self::CANCEL_TASK => 'Отменить',
-                self::START_TASK  => 'Откликнуться',
-                self::FINISH_TASK => 'Выполнено',
-                self::REJECT_TASK => 'Отказаться'
+//                self::cancelTask() => self::cancelTask->getPublicName(),
+//                self::START_TASK  => 'Откликнуться',
+//                self::FINISH_TASK => 'Выполнено',
+//                self::REJECT_TASK => 'Отказаться'
             ];
         }
 
@@ -77,19 +88,19 @@
          * @param string $status
          * @param string $role
          *
-         * @return array
+         * @return \htmlacademy\action\ActionCancel|\htmlacademy\action\ActionFinish|\htmlacademy\action\ActionReject|\htmlacademy\action\ActionStart|string
          */
-        public function getAvailableActions (string $status, string $role) : array
+        public function getAvailableActions (string $status, string $role)
         {
-            $actions = [];
+            $actions = '';
 
-            //   There are - 'client' || 'worker'  roles only
+            //   There are - 'employer' || 'employee'  roles only
             switch ($status) {
                 case self::STATUS_NEW:
-                    $actions = ($role === 'client') ? [self::CANCEL_TASK] : [self::START_TASK];
+                    $actions = ($role === 'employer') ? $this->cancelTask : $this->startTask;
                     break;
                 case self::STATUS_STARTED:
-                    $actions = ($role === 'client') ? [self::REJECT_TASK] : [self::START_TASK];
+                    $actions = ($role === 'employer') ? $this->finishTask : $this->rejectTask;
                     break;
             }
 
@@ -108,54 +119,56 @@
             return $statuses[$this->currentStatus] ?? '';
         }
 
-        /**
-         * Change task status if something happened
-         *
-         * @param string $action
-         *
-         * @return string current action
-         */
-        public function changeStatus (string $action) : string
-        {
-            switch ($action) {
-                case self::CANCEL_TASK:
-                    $this->currentStatus = self::STATUS_CANCELED;
-                    break;
-                case self::START_TASK:
-                    $this->currentStatus = self::STATUS_STARTED;
-                    break;
-                case self::FINISH_TASK:
-                    $this->currentStatus = self::STATUS_DONE;
-                    break;
-                case self::REJECT_TASK:
-                    $this->currentStatus = self::STATUS_FAILED;
-                    break;
-            }
-            return $this->currentStatus;
-        }
+        /*TODO: implement later*/
+//        /**
+//         * Change task status if something happened
+//         *
+//         * @param string $action
+//         *
+//         * @return string current action
+//         */
+//        public function changeStatus (string $action) : string
+//        {
+//            switch ($action) {
+//                case self::CANCEL_TASK:
+//                    $this->currentStatus = self::STATUS_CANCELED;
+//                    break;
+//                case self::START_TASK:
+//                    $this->currentStatus = self::STATUS_STARTED;
+//                    break;
+//                case self::FINISH_TASK:
+//                    $this->currentStatus = self::STATUS_FINISH;
+//                    break;
+//                case self::REJECT_TASK:
+//                    $this->currentStatus = self::STATUS_FAILED;
+//                    break;
+//            }
+//            return $this->currentStatus;
+//        }
 
 
-        /**
-         * Assign worker to task
-         *
-         * @return string
-         */
-        public function assignWorker () : string
-        {
-            $user = $this->getUser();
-            $this->workerID = $user->id;
-            return $this->changeStatus(self::STATUS_STARTED);
-        }
+//        /**
+//         * Assign worker to task
+//         *
+//         * @return string
+//         */
+//        public function assignWorker () : string
+//        {
+//            $user = $this->getUser();
+//            $this->employeeID = $user->id;
+//            return $this->changeStatus(self::STATUS_STARTED);
+//        }
 
-        /**
-         *Get client object from DB
-         *
-         * @return object | null
-         */
-        private function getUser ()
-        {
-            /*Importing a client from DB using User class, User will also have role property*/
-            $user = new User();
-            return $user ?? null;
-        }
+//        /**
+//         *Get client object from DB
+//         *
+//         * @return object | null
+//         */
+//        private function getUser ()
+//        {
+//            /*Importing a client from DB using User class, User will also have role property*/
+//            $user = new User();
+//            return $user ?? null;
+//        }
+
     }

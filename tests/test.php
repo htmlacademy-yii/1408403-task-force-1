@@ -5,13 +5,32 @@
     error_reporting(E_ALL);
 
     use htmlacademy\Task;
+
     require '../vendor/autoload.php';
 
     $task = new Task();
+    var_dump($task->getAvailableActions(TASK::STATUS_NEW, 'employer'));
+    var_dump($task->getAvailableActions(TASK::STATUS_NEW, 'employee'));
+    var_dump($task->getAvailableActions(TASK::STATUS_STARTED, 'employer'));
+    var_dump($task->getAvailableActions(TASK::STATUS_STARTED, 'employee'));
+    var_dump($task->getAvailableActions(TASK::STATUS_NEW, 'employer'));
+//    var_dump($task->getActionMap());
 
-    if ($task->changeStatus('start') !== Task::STATUS_STARTED) {
-        throw new Exception('Something went wrong');
-}
+
+
+
+//    if ($task->changeStatus('start') !== Task::STATUS_STARTED) {
+//    throw new Exception('Something went wrong');
+//}
+
+
+
+
+
+
+
+
+
 
     /**
      * Strange stuff - IT DOES NOT WORK
