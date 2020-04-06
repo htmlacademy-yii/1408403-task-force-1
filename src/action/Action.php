@@ -26,5 +26,5 @@
          * @param string $employeeID - id of the employee
          * @param string $userId     - current user id
          */
-        abstract public function checkAccess ($employerId, $employeeID, $userId);
+        abstract public function checkAccess(int $employerId, int $employeeID, int $userId);
     }
