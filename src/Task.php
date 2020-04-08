@@ -1,11 +1,12 @@
 <?php
 
+    declare(strict_types = 1);
+
     namespace htmlacademy;
 
-    use htmlacademy\action\ActionCancel;
-    use htmlacademy\action\ActionFinish;
-    use htmlacademy\action\ActionReject;
-    use htmlacademy\action\ActionStart;
+    use htmlacademy\action\Actions;
+    use htmlacademy\ex\TaskStatusException;
+    use htmlacademy\ex\UserRoleException;
 
     /**
      * Class Task
@@ -26,10 +27,7 @@
         /**
          * Actions
          */
-        private $cancelTask;
-        private $startTask;
-        private $finishTask;
-        private $rejectTask;
+        private $actions;
 
         /**
          * Stored data
@@ -38,16 +36,13 @@
         private $employerID;
         private $employeeID;
 
-        public function __construct ()
+        public function __construct()
         {
             #$this->$employerID = $this->getUser()->id; currently switched off due to lack of the proper object
             $this->employeeID = '';
             $this->currentStatus = self::STATUS_NEW;
 
-            $this->cancelTask = new ActionCancel();
-            $this->startTask = new ActionStart();
-            $this->finishTask = new ActionFinish();
-            $this->rejectTask = new ActionReject();
+            $this->actions = new Actions();
         }
 
         /**
@@ -55,7 +50,7 @@
          *
          * @return array
          */
-        public static function getStatusMap () : array
+        public static function getStatusMap() : array
         {
             return [
                 self::STATUS_NEW      => 'Новое',
@@ -66,46 +61,44 @@
             ];
         }
 
-        /**
-         * Generates map for actions
-         *
-         * @return array
-         */
-        public static function getActionMap () : array
-        {
-            //Todo: implement later
-            return [
-//                self::cancelTask() => self::cancelTask->getPublicName(),
-//                self::START_TASK  => 'Откликнуться',
-//                self::FINISH_TASK => 'Выполнено',
-//                self::REJECT_TASK => 'Отказаться'
-            ];
-        }
 
         /**
-         * Return actions for certain status
-         *
          * @param string $status
          * @param string $role
          *
-         * @return \htmlacademy\action\ActionCancel|\htmlacademy\action\ActionFinish|\htmlacademy\action\ActionReject|\htmlacademy\action\ActionStart|string
+         * @return \htmlacademy\action\Action
+         * @throws \htmlacademy\ex\TaskStatusException
+         * @throws \htmlacademy\ex\UserRoleException
+         *
          */
-        public function getAvailableActions (string $status, string $role)
+        public function getAvailableActions(string $status, string $role) /*: Action*/
         {
-            $actions = '';
+            $statusMap = $this->getStatusMap();
+
+            if (!isset($statusMap[$status])) {
+                throw new TaskStatusException('Wrong task status');
+            }
+
+            if ($role === 'employer' xor $role !== 'employee') {
+                throw new UserRoleException();
+            }
+
+            $actions = $this->actions->getActionObjMap();
+            $action = null;
 
             //   There are - 'employer' || 'employee'  roles only
             switch ($status) {
                 case self::STATUS_NEW:
-                    $actions = ($role === 'employer') ? $this->cancelTask : $this->startTask;
+                    $action = ($role === 'employer') ? $actions['cancel_action'] : $actions['start_action'];
                     break;
                 case self::STATUS_STARTED:
-                    $actions = ($role === 'employer') ? $this->finishTask : $this->rejectTask;
+                    $action = ($role === 'employer') ? $actions['finish_action'] : $actions['reject_action'];
                     break;
+                default:
+                    throw new TaskStatusException('Wrong task status');
             }
 
-            return $actions;
-
+            return $action;
         }
 
         /**
@@ -113,10 +106,10 @@
          *
          * @return string translated name for status
          */
-        public function getCurrentStatusName () : string
+        public function getCurrentStatusName() : ?string
         {
             $statuses = self::getStatusMap();
-            return $statuses[$this->currentStatus] ?? '';
+            return $statuses[$this->currentStatus] ?? null;
         }
 
         /*TODO: implement later*/
