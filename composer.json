@@ -6,7 +6,8 @@
       "htmlacademy\\": "src/",
       "htmlacademy\\user\\": "src/user",
       "htmlacademy\\action\\": "src/action",
-      "htmlacademy\\ex\\": "src/ex"
+      "htmlacademy\\ex\\": "src/ex",
+      "htmlacademy\\utils\\": "src/utils"
     }
   }
 }
