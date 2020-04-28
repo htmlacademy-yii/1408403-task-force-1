@@ -87,7 +87,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Attachments]].
      *
-     * @return \yii\db\ActiveQuery|AttachmentQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getAttachments()
     {
@@ -97,7 +97,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Notifications]].
      *
-     * @return \yii\db\ActiveQuery|NotificationQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getNotifications()
     {
@@ -107,7 +107,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Responses]].
      *
-     * @return \yii\db\ActiveQuery|ResponseQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getResponses()
     {
@@ -117,7 +117,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[City]].
      *
-     * @return \yii\db\ActiveQuery|CityQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCity()
     {
@@ -127,7 +127,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery|CategoryQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCategory()
     {
@@ -137,7 +137,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[CreatedByUser]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCreatedByUser()
     {
@@ -147,7 +147,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[AssignedUser]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getAssignedUser()
     {
@@ -157,7 +157,7 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[TaskChats]].
      *
-     * @return \yii\db\ActiveQuery|TaskChatQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTaskChats()
     {
@@ -167,19 +167,10 @@ class Task extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Testimonials]].
      *
-     * @return \yii\db\ActiveQuery|TestimonialQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTestimonials()
     {
         return $this->hasMany(Testimonial::className(), ['task_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return TaskQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new TaskQuery(get_called_class());
     }
 }

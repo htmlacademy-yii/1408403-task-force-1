@@ -51,7 +51,7 @@ class UserCategory extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
@@ -61,19 +61,10 @@ class UserCategory extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery|CategoryQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return UserCategoryQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserCategoryQuery(get_called_class());
     }
 }

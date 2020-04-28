@@ -67,10 +67,20 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
+        /**
+     * Gets query for [[UserProfile]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserProfile()
+    {
+        return $this->hasOne(UserProfile::className(), ['user_id' => 'id']);
+    }
+
     /**
      * Gets query for [[Favorites]].
      *
-     * @return \yii\db\ActiveQuery|FavoriteQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getFavorites()
     {
@@ -80,7 +90,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Favorites0]].
      *
-     * @return \yii\db\ActiveQuery|FavoriteQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getFavorites0()
     {
@@ -90,7 +100,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Notifications]].
      *
-     * @return \yii\db\ActiveQuery|NotificationQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getNotifications()
     {
@@ -100,7 +110,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Responses]].
      *
-     * @return \yii\db\ActiveQuery|ResponseQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getResponses()
     {
@@ -110,7 +120,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \yii\db\ActiveQuery|TaskQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTasks()
     {
@@ -120,7 +130,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Tasks0]].
      *
-     * @return \yii\db\ActiveQuery|TaskQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTasks0()
     {
@@ -130,7 +140,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[TaskChats]].
      *
-     * @return \yii\db\ActiveQuery|TaskChatQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTaskChats()
     {
@@ -140,7 +150,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[TaskChats0]].
      *
-     * @return \yii\db\ActiveQuery|TaskChatQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTaskChats0()
     {
@@ -150,7 +160,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Testimonials]].
      *
-     * @return \yii\db\ActiveQuery|TestimonialQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTestimonials()
     {
@@ -160,7 +170,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Testimonials0]].
      *
-     * @return \yii\db\ActiveQuery|TestimonialQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTestimonials0()
     {
@@ -170,7 +180,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserCategories]].
      *
-     * @return \yii\db\ActiveQuery|UserCategoryQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserCategories()
     {
@@ -180,7 +190,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserProfiles]].
      *
-     * @return \yii\db\ActiveQuery|UserProfileQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserProfiles()
     {
@@ -190,7 +200,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserSettings]].
      *
-     * @return \yii\db\ActiveQuery|UserSettingsQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserSettings()
     {
@@ -200,7 +210,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserStatistics]].
      *
-     * @return \yii\db\ActiveQuery|UserStatisticsQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserStatistics()
     {
@@ -210,7 +220,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserViews]].
      *
-     * @return \yii\db\ActiveQuery|UserViewQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserViews()
     {
@@ -220,7 +230,7 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserViews0]].
      *
-     * @return \yii\db\ActiveQuery|UserViewQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserViews0()
     {
@@ -230,19 +240,10 @@ class User extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserWorkStories]].
      *
-     * @return \yii\db\ActiveQuery|UserWorkStoryQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserWorkStories()
     {
         return $this->hasMany(UserWorkStory::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return UserQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserQuery(get_called_class());
     }
 }

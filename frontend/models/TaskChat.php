@@ -63,7 +63,7 @@ class TaskChat extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Task]].
      *
-     * @return \yii\db\ActiveQuery|TaskQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTask()
     {
@@ -73,7 +73,7 @@ class TaskChat extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Employer]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getEmployer()
     {
@@ -83,19 +83,10 @@ class TaskChat extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Employee]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getEmployee()
     {
         return $this->hasOne(User::className(), ['id' => 'employee_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return TaskChatQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new TaskChatQuery(get_called_class());
     }
 }

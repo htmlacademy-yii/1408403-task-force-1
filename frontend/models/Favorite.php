@@ -51,7 +51,7 @@ class Favorite extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
@@ -61,19 +61,10 @@ class Favorite extends \yii\db\ActiveRecord
     /**
      * Gets query for [[FavoriteUser]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getFavoriteUser()
     {
         return $this->hasOne(User::className(), ['id' => 'favorite_user_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return FavoriteQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new FavoriteQuery(get_called_class());
     }
 }

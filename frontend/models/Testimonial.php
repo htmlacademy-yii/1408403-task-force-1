@@ -63,7 +63,7 @@ class Testimonial extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
@@ -73,7 +73,7 @@ class Testimonial extends \yii\db\ActiveRecord
     /**
      * Gets query for [[CreatedByUser]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCreatedByUser()
     {
@@ -83,19 +83,10 @@ class Testimonial extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Task]].
      *
-     * @return \yii\db\ActiveQuery|TaskQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTask()
     {
         return $this->hasOne(Task::className(), ['id' => 'task_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return TestimonialQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new TestimonialQuery(get_called_class());
     }
 }
