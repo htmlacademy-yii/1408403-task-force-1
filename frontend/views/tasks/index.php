@@ -6,28 +6,26 @@
     <div class="new-task__wrapper">
         <h1>Новые задания</h1>
         <?php
-            if (isset($tasks) and !empty($tasks)) :
+            if (count($tasks) > 0) :
                 foreach ($tasks as $task) :?>
                     <div class="new-task__card">
                         <div class="new-task__title">
-                            <a href="#" class="link-regular"><h2><?= $task['title'] ?></h2></a>
-                            <a class="new-task__type link-regular" href="#"><p><?= $task['category']['name'] ?></p></a>
+                            <a href="#" class="link-regular"><h2><?= $task->title ?></h2></a>
+                            <a class="new-task__type link-regular" href="#"><p><?= $task->category->name ?></p></a>
                         </div>
-                        <div class="new-task__icon new-task__icon--<?= $task['category']['slug'] ?>"></div>
+                        <div class="new-task__icon new-task__icon--<?= $task->category->slug ?>"></div>
                         <p class="new-task_description">
-                            <?= $task['description'] ?>
+                            <?= $task->description ?>
                         </p>
-                        <b class="new-task__price new-task__price--translation"><?= $task['budget'] ?><b> ₽</b></b>
-                        <p class="new-task__place"><?= $task['city']['name'] ?></p>
+                        <b class="new-task__price new-task__price--translation"><?= $task->budget ?><b> ₽</b></b>
+                        <p class="new-task__place"><?= $task->city->name ?></p>
                         <span class="new-task__time"><?= Yii::$app->formatter->format(
-                                $task['created_at'],
+                                $task->created_at,
                                 'relativeTime'
                             ) ?></span>
                     </div>
-                <?php
-                endforeach;
-            endif;
-        ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
     </div>
     <div class="new-task__pagination">
         <ul class="new-task__pagination-list">

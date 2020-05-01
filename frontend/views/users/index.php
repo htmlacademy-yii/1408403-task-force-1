@@ -1,6 +1,8 @@
 <?php
+
     $this->title = 'Исполнители';
     /*Need todo: sorting rating, categories*/
+    //    var_dump($employees);die;
 ?>
 <section class="user__search">
     <div class="user__search-link">
@@ -17,41 +19,47 @@
             </li>
         </ul>
     </div>
-    <?php if (isset($employees) and !empty($employees)):
-    foreach ($employees as $employee):
-        $statistics = $employee['userStatistics'][0];?>
-    <div class="content-view__feedback-card user__search-wrapper">
-        <div class="feedback-card__top">
-            <div class="user__search-icon">
-                <a href="#"><img src="./img/man-glasses.jpg" width="65" height="65" alt=""></a>
-                <span><?= $statistics['tasks'] ?> заданий</span>
-                <span><?= $statistics['reviews_received'] ?> отзывов</span>
-            </div>
-            <div class="feedback-card__top--name user__search-card">
-                <p class="link-name">
-                    <a href="#" class="link-regular"><?= $employee['full_name'] ?></a>
-                </p>
-                <?php
-                    $rating = floor($statistics['rating']);
-                    for($i=1; $i <= 5;$i++) :?>
-                <span <?= ($i > $rating) ? 'class="star-disabled"' : '' ?>></span>
-                <?php endfor;?>
+    <?php
+        if (!empty($employees)):
+            foreach ($employees as $employee):
+                $statistics = $employee->userStatistics[0]; ?>
+                <div class="content-view__feedback-card user__search-wrapper">
+                    <div class="feedback-card__top">
+                        <div class="user__search-icon">
+                            <a href="#"><img src="./img/man-glasses.jpg" width="65" height="65" alt=""></a>
+                            <span><?= $statistics->tasks_done + $statistics->tasks_failed ?> заданий</span>
+                            <span><?= $statistics->reviews_received ?> отзывов</span>
+                        </div>
+                        <div class="feedback-card__top--name user__search-card">
+                            <p class="link-name">
+                                <a href="#" class="link-regular"><?= $employee->full_name ?></a>
+                            </p>
+                            <?php
+                                $rating = floor($statistics->rating);
+                                for ($i = 1; $i <= 5; $i++) :?>
+                                    <span <?= ($i > $rating) ? 'class="star-disabled"' : '' ?>></span>
+                                <?php endfor; ?>
 
-                <b><?= $statistics['rating'] ?></b>
-                <p class="user__search-content">
-                    <?= $employee['userProfile']['bio'] ?>
-                </p>
-            </div>
-            <span class="new-task__time">Был на сайте 25 минут назад</span>
-        </div>
-        <div class="link-specialization user__search-link--bottom">
-            <?php if (isset($employee['userCategories'])):
-            foreach ($employee['userCategories'] as $cat):?>
-            <a href="#" class="link-regular"><?= $cat['category']['name'] ?></a>
-            <?php endforeach;endif;?>
-        </div>
-    </div>
-    <?php endforeach;endif;?>
+                            <b><?= $statistics->rating ?></b>
+                            <p class="user__search-content">
+                                <?= $employee->userProfile->bio ?>
+                            </p>
+                        </div>
+                        <span class="new-task__time">Был на сайте 25 минут назад</span>
+                    </div>
+                    <div class="link-specialization user__search-link--bottom">
+                        <!--                        --><?php //
+                            //                            foreach ($employee->userCategories-> as $cat):
+                        ?>
+                        <!--                                <a href="#" class="link-regular">-->
+                        <? //= $cat['category']['name']
+                        ?><!--</a>-->
+                        <!--                            --><?php //endforeach;
+                        ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 </section>
 <section class="search-task">
     <div class="search-task__wrapper">

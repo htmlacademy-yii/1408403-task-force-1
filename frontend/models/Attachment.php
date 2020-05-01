@@ -50,19 +50,10 @@ class Attachment extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Task]].
      *
-     * @return \yii\db\ActiveQuery|TaskQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTask()
     {
         return $this->hasOne(Task::className(), ['id' => 'task_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return AttachmentQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new AttachmentQuery(get_called_class());
     }
 }

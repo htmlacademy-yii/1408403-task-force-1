@@ -16,7 +16,6 @@ use Yii;
  * @property string|null $skype
  * @property string|null $telegram
  * @property string|null $avatar
- * @property int|null $is_employer field is described as role
  *
  * @property User $user
  * @property City $city
@@ -37,7 +36,7 @@ class UserProfile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'city_id', 'is_employer'], 'integer'],
+            [['user_id', 'city_id'], 'integer'],
             [['birthday'], 'safe'],
             [['bio'], 'string'],
             [['tel', 'skype', 'telegram', 'avatar'], 'string', 'max' => 255],
@@ -61,7 +60,6 @@ class UserProfile extends \yii\db\ActiveRecord
             'skype' => 'Skype',
             'telegram' => 'Telegram',
             'avatar' => 'Avatar',
-            'is_employer' => 'Is Employer',
         ];
     }
 

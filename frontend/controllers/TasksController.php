@@ -12,19 +12,17 @@
 
         public function getTasks()
         {
-            $model = new Task();
-            return $model::find()
+            return Task::find()
                 ->where(['status' => 'new'])
-                ->joinWith('category')
-                ->joinWith('city')
+                ->joinWith(['category', 'city'])
                 ->orderBy(['created_at' => SORT_DESC])
-                ->asArray()->all();
+                ->all();
         }
 
         public function actionIndex()
         {
             $tasks = $this->getTasks();
-            return $this->render('index', ['tasks' => $tasks]);
+            return $this->render('index', compact("tasks"));
         }
 
     }
