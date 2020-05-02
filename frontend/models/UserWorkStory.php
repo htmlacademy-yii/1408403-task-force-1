@@ -50,19 +50,10 @@ class UserWorkStory extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return UserWorkStoryQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserWorkStoryQuery(get_called_class());
     }
 }

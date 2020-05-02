@@ -51,7 +51,7 @@ class Category extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \yii\db\ActiveQuery|TaskQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTasks()
     {
@@ -61,19 +61,10 @@ class Category extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserCategories]].
      *
-     * @return \yii\db\ActiveQuery|UserCategoryQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserCategories()
     {
         return $this->hasMany(UserCategory::className(), ['category_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return CategoryQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new CategoryQuery(get_called_class());
     }
 }

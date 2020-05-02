@@ -16,7 +16,6 @@ use Yii;
  * @property string|null $skype
  * @property string|null $telegram
  * @property string|null $avatar
- * @property int|null $is_employer field is described as role
  *
  * @property User $user
  * @property City $city
@@ -37,7 +36,7 @@ class UserProfile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'city_id', 'is_employer'], 'integer'],
+            [['user_id', 'city_id'], 'integer'],
             [['birthday'], 'safe'],
             [['bio'], 'string'],
             [['tel', 'skype', 'telegram', 'avatar'], 'string', 'max' => 255],
@@ -61,14 +60,13 @@ class UserProfile extends \yii\db\ActiveRecord
             'skype' => 'Skype',
             'telegram' => 'Telegram',
             'avatar' => 'Avatar',
-            'is_employer' => 'Is Employer',
         ];
     }
 
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
@@ -78,19 +76,10 @@ class UserProfile extends \yii\db\ActiveRecord
     /**
      * Gets query for [[City]].
      *
-     * @return \yii\db\ActiveQuery|CityQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCity()
     {
         return $this->hasOne(City::className(), ['city_id' => 'city_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return UserProfileQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserProfileQuery(get_called_class());
     }
 }

@@ -51,7 +51,7 @@ class UserView extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
@@ -61,19 +61,10 @@ class UserView extends \yii\db\ActiveRecord
     /**
      * Gets query for [[UserCame]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserCame()
     {
         return $this->hasOne(User::className(), ['id' => 'user_came_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return UserViewQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserViewQuery(get_called_class());
     }
 }
